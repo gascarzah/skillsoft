@@ -1,0 +1,43 @@
+.boton001 {
+	font-family: Tahoma, "Times New Roman", Arial;
+	font-size: 11px;
+	font-style: normal;
+	color: #1A4553;
+	background-color: #DFE6EE;
+	font-weight: bold;
+	cursor: hand;
+	border: solid #DFE6EE;
+	text-decoration: none;
+	display:none;
+}
+.boton002 {
+	font-family: Tahoma, "Times New Roman", Arial;
+	font-size: 11px;
+	font-style: normal;
+	color: #1A4553;
+	background-color: #B0C4DE;
+	font-weight: bold;
+	cursor: hand;
+	border: solid #DFE6EE;
+	text-decoration: none;
+	display:none;
+}
+.boton003 {
+	font-family:tahoma,sans-serif;
+	font-size:11px;
+	font-weight:BOLD;
+	background: #B0C4DE;
+	border-bottom: 1px solid #27697E;
+	border-right: 1px solid #27697E;
+	border-left: 1px solid #27697E;
+	border-top: 2px solid #AFC4D5;
+	color: #1A4553;
+	height:19px;
+	text-decoration:none;
+	cursor: hand;
+	display:none;
+}
+.mano000 {
+	cursor: hand;
+	display:none;
+}
