@@ -1,0 +1,353 @@
+<%@ page session="true" %>
+<%@ page import="java.util.*" %>
+<%@ page import="beans.WebUtil" %>
+<%@ page import="beans.Util" %>
+<%@ page import="clases.Tablas_t" %>
+<%@ page import="clases.ListFicha_t" %>
+<%@ page import="clases.UsuarioSistema" %>
+<%@ page import="java.util.GregorianCalendar"%>
+<%@ include file="../jsp/formato_fecha.jsp" %>
+<%
+  UsuarioSistema clusuario = (UsuarioSistema)session.getAttribute("sClusuario");
+  Tablas_t objLst = (Tablas_t)request.getAttribute("objLst");
+	String msg = (String)request.getAttribute("msg_error");
+	Vector v;
+	Vector vCols;
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>EsSalud - Registro Inform&aacute;tico de Atenci&oacute;n al Asegurado</title>
+<link href="../styles/celdas.css" rel="stylesheet" type="text/css">
+<link href="../styles/botones.css" rel="stylesheet" media="print" type="text/css">
+<script language="JavaScript" src="../js/ubigeo.js"></script>
+<script language="JavaScript" src="../js/script2.js"></script>
+<script language="javascript" src="../js/format_date.js"></script>
+<script language="javascript" src="../js/stm31.js"></script>
+<script language="javascript">
+function inicio(){
+	document.f1.USU.value = "";
+	document.f1.DES.value = "";
+	<% if (clusuario.getPerfil().compareTo("10")==0 || clusuario.getPerfil().compareTo("00")==0){ %>
+	document.f.USUARIO.value = "";
+	document.f.DESCRIPCION.value = "";
+	document.f.DUSUMAIL.value = "";
+	document.f.PERFIL.value = "";
+	document.f.CRED.value = "";
+	document.f.CCAS.value = "";
+	document.f.BESTADOREG.value = "";
+	<% } %>
+}
+
+function goPg(np){
+  document.f1.pg.value = np;
+  document.f1.submit();
+}  
+
+function buscar(){
+	var strCod = document.f1.USU.value;
+	var strDes = document.f1.DES.value;
+	var strPer = document.f1.PER.value;
+	if(document.f1.USU.value == "" && document.f1.DES.value == "" && document.f1.PER.value == ""){
+		alert("Por favor ingrese algún criterio de búsqueda");
+		event.returnValue=false;
+		document.f1.USU.focus();
+	}
+	else
+		document.f1.submit();
+}
+
+function Actualiza(){
+	document.f1.pg.value = '1';
+	//document.f1.submit();
+	location.href='../servlet/CtrlMant';	
+}
+
+function pasa(fun,cod){
+  parent.bot.location.href='../jsp/botFicha.jsp?funcion='+fun+'&codigo='+cod;
+}
+
+function getReg(cod,des,mai,per,red,cas,est,mat,nom){ 
+	document.f.USUARIO.value = cod;
+	document.f.DESCRIPCION.value = des;
+	document.f.DUSUMAIL.value = mai;
+	document.f.PERFIL.value = per; 
+	document.f.CRED.value = red;
+	document.f.CCAS.value = cas;
+	document.f.BESTADOREG.value = est=='ACTIVO'?'1':'0';
+	document.f.DAPEMATUSU.value = mat;
+	document.f.DNOMUSU.value = nom;
+	document.f.graba.value = " MODIFICAR ";
+	document.f.graba.title = " Graba Datos Actualizados del registro ";
+	document.f.Salir.value = "CANCELAR";
+	document.f.Salir.title = " Cancela la actualización del registro ";
+	eval('document.f.USUARIO.readOnly=true');
+	document.f.USUARIO.style.backgroundColor="#DFE6EE";
+}
+
+function getSalir(){
+	var caso = document.f.Salir.value;
+	if (caso == 'CANCELAR'){
+		document.f.graba.value = "ADICIONAR";
+		document.f.graba.title = " Ingresar Nuevo Catálogo ";
+		document.f.Salir.value = " SALIR ";
+		eval('document.f.USUARIO.readOnly=false');
+		document.f.USUARIO.style.backgroundColor="#FFFFFF";
+		inicio();
+	}
+	else{
+		location.href='../servlet/CtrlFicha?opt=0';
+	}
+}
+
+function getGrabar(){
+	if (document.f.USUARIO.value == "" || document.f.DESCRIPCION.value == "" || document.f.PERFIL.value == "" || document.f.CCAS.value == "" || document.f.BESTADOREG.value == ""){
+		alert("Por favor ingrese todos los datos");
+		document.f.USUARIO.focus();
+		return;
+	}
+	if (document.f.graba.value == 'ADICIONAR'){
+		document.f.caso.value = 'I';
+	} 
+	else{
+		document.f.caso.value = 'M';
+	}
+	document.f.submit();
+}
+
+function getRestart(){
+	if(document.f.USUARIO.value == ""){
+		alert("Antes de presionar REINICIAR seleccione un registro");
+	}
+	else {
+		location.href='../servlet/CtrlUsuarios?upd=RESTART&USER='+document.f.USUARIO.value+'&CUSER=<%=clusuario.getUsuario()%>';
+	}
+}
+
+</script>
+<script src="../Scripts/AC_RunActiveContent.js" type="text/javascript"></script>
+</head>
+<body class="body" onload="inicio();"  bgproperties="fixed">
+<table class="banner01" >
+  <tr>
+    <td width="220" rowspan="4" align="center"><img src="../images/es03.jpg" width="120" height="100"/></td>
+    <td align="center"><%@include file="../js/menu_all.js" %></td>
+    <td width="220" rowspan="7" align="right"><img src="../images/defensoria01.jpg" width="120" height="100"/></td>
+  </tr>
+  <tr>
+    <td align="center" class="titulob1">&nbsp;</td>
+  </tr>
+  <tr align="center">
+    <td>&nbsp;</td>
+  </tr>
+  <tr align="center">
+    <td align="center" class="titulob2">REGISTRO INFORMÁTICO DE ATENCIÓN AL ASEGURADO</td>
+  </tr>
+  <tr align="center">
+    <td width="220" align="center" class="celdasb"><%= clusuario.getDescripcion() %></td>
+    <td align="center" class="titulob1">&nbsp;</td>
+  </tr>
+  <tr align="center">
+    <td align="center" class="celdasb"><%= clusuario.getdPerfil() %></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr align="center">
+    <td align="center" class="celdasb"><%= clusuario.getdCas() %></td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table align="center" width="100%">
+  <tr>
+    <td colspan="3">&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center" class="titulo1">MANTENIMIENTO DE LA TABLA USUARIOS</td>
+  </tr>
+</table>
+<form name="f1" method="post">
+	<table width="90%" border="0" align="center" cellspacing="0">
+		<tr class="celdas01">
+			<td>
+				USUARIO <input name="USU" type="text" class="celdas01" value="" size="10" maxlength="20">
+				AP. PATERNO
+				<input name="DES" type="text" class="celdas01" value="" onChange="cambia(this);" size="25" maxlength="30">
+				PERFIL <select name="PER" class="celdas01">
+				  <option value="" selected="selected">SELECCIONA</option>
+				  <%
+								v =  (Vector) request.getAttribute ("vPerfil");
+								if (v != null) {  
+									for (int i = 0; i < v.size(); i++) {  
+										vCols = (Vector) v.get(i);  
+							%>
+				  <option value="<%=vCols.get(0)%>" <%= Util.jnvl((String)request.getParameter("PERFIL"),"").compareTo(vCols.get(0))==0?"SELECTED":"" %>><%= vCols.get(1)%></option>
+				  <%
+									}
+								}
+							%>
+			  </select>
+				<input name="Button" type="button" class="boton4" value="BUSCAR" onclick="buscar();">
+				<!--<input name="Submit" type="submit" class="boton4" value="ACTUALIZAR" onclick="Actualiza();">-->
+			</td>
+			<td>
+				<input type="hidden" name="pg" value="<%= objLst.getPag()%>">
+				<input type="hidden" name="opt" value="3">
+			</td>
+			<td align="right" width="25%"><%  if ( objLst.getPaginacion().getPaginaAnt()) { %>
+				<input name="button" value="  <<  " type="button" class="boton4" onClick="goPg(<%= Integer.parseInt(objLst.getPag()) - 1%>);" title="Pagina anterior">
+					<%  } 
+				if ( objLst.getPaginacion().getPaginaSgte()) { %>
+				<input name="button" value="  >>  " type="button" class="boton4" onClick="goPg(<%= Integer.parseInt(objLst.getPag()) + 1%>);" title="Pagina siguiente">
+					<%  } %>
+			</td>
+		</tr>
+	</table>
+	<table width="90%"  border="1" align="center" cellspacing="0" bordercolor="#3DB7E4">
+		<tr>
+			<td>
+				<table width="100%" border="1" align="center" cellspacing="0" bordercolor="#DFE6EE" bgcolor="#FFFFFF">
+					<tr bgcolor="#3DB7E4" class="Estilo3" align="center"> 
+						<td>ITEM</td>
+						<td>USUARIO</td>
+						<td>APELLIDOS Y NOMBRES </td>
+						<td>CORREO</td>
+						<td>PERFIL</td>
+						<td>CAS</td>
+						<td>ESTADO</td>
+					</tr>
+	<%
+			int counter = 0;
+			boolean bFil = true;
+			for (Enumeration e = objLst.getHshLista().keys(); e.hasMoreElements();) {
+				e.nextElement();
+				v = (Vector)objLst.getHshLista().get("" + counter);
+				bFil = bFil?false:true; 
+				counter++;
+	%>
+					<tr bgcolor="<%=bFil?"#EAEFF5":"#FFFFFF"%>" class="celdas01">
+					  <td align="center">
+					  <% if (clusuario.getPerfil().compareTo("10")==0 || clusuario.getPerfil().compareTo("00")==0){ %>
+              <a href="javascript:getReg('<%=v.get(0)%>','<%=v.get(2)%>','<%=v.get(3)%>','<%=v.get(4)%>','<%=v.get(9)%>','<%=v.get(5)%>','<%=v.get(6)%>','<%=v.get(11)%>','<%=v.get(12)%>');">
+				    	<img src="../images/fleder.jpg" alt="Seleccione para actualizar datos del registro" width="12" height="12" border="0"></a>
+				    <% } %>&nbsp;&nbsp;
+				    <%= counter + ((Integer.parseInt(objLst.getPag()) - 1)  * 15) %></td> 
+						<td align="center"><%= v.get(0)!=null?v.get(0):"" %></td>
+						<td><%= v.get(2)!=null?v.get(2):"&nbsp;" %>&nbsp;<%= v.get(11)!=null?v.get(11):"&nbsp;" %>&nbsp;<%= v.get(12)!=null?v.get(12):"&nbsp;" %></td>
+						<td><%= v.get(3)!=null?v.get(3):"&nbsp;" %></td>
+						<td align="center"><%= v.get(7)!=null?v.get(7):"&nbsp;" %></td>
+						<td><%= v.get(8)!=null?v.get(8):"&nbsp;" %></td>
+						<td align="center"><%= v.get(6)!=null?v.get(6):"&nbsp;" %></td>
+					</tr>
+	<%
+			}  
+	%>
+				</table>
+			</td>
+		</tr>
+	</table>
+</form>
+<%
+	if (objLst!=null) {
+		if (clusuario.getPerfil().compareTo("10")==0 || clusuario.getPerfil().compareTo("00")==0){
+%>
+<form action="../servlet/CtrlMant" method="post" name="f">
+	<table width="90%" border="1" align="center" cellspacing="0" bordercolor="#3DB7E4">
+		<tr>
+			<td>
+				<table width="100%" border="1" align="center"  cellspacing="0" bordercolor="#DFE6EE" bgcolor="#FFFFFF">
+					<tr class="Estilo3"  bgcolor="#3DB7E4" align="center">
+						<td>USUARIO</td>
+						<td>AP. PATERNO </td>
+						<td>AP. MATERNO </td>
+						<td>NOMBRES</td>
+						<td>CORREO</td>
+						<td>PERFIL</td>
+						<td>RED</td>
+						<td>CENTRO ASISTENCIAL</td>
+						<td>ESTADO</td>
+					</tr>
+					<tr align="center">
+						<td><input name="USUARIO" type="text" class="celdas01" onfocus="nextfield ='DESCRIPCION';" size="10" maxlength="10"></td>
+						<td><input name="DESCRIPCION" type="text" class="celdas01" onfocus="nextfield ='DAPEMATUSU';" onchange="cambia(this);" size="15" maxlength="15" /></td>
+						<td><input name="DAPEMATUSU" type="text" class="celdas01" onfocus="nextfield ='DNOMUSU';" onchange="cambia(this);" size="15" maxlength="15" /></td>
+						<td><input name="DNOMUSU" type="text" class="celdas01" onfocus="nextfield ='DUSUMAIL';" onchange="cambia(this);" size="20" maxlength="20" /></td>
+						<td><input name="DUSUMAIL" type="text" class="celdas01" onfocus="nextfield ='PERFIL';" size="25" maxlength="50" /></td>
+						<td>
+							<select name="PERFIL" class="celdas01" onfocus="nextfield ='CRED';">
+              <option value="" selected="selected">SELECCIONA</option>
+              <%
+								v =  (Vector) request.getAttribute ("vPerfil");
+								if (v != null) {  
+									for (int i = 0; i < v.size(); i++) {  
+										vCols = (Vector) v.get(i);  
+							%>
+									<option value="<%=vCols.get(0)%>" <%= Util.jnvl((String)request.getParameter("PERFIL"),"").compareTo(vCols.get(0))==0?"SELECTED":"" %>><%= vCols.get(1)%> </option>
+									<%
+									}
+								}
+							%>
+							</select>						</td>
+						<td><select name="CRED" class="celdas01" onfocus="nextfield ='CCAS';" onchange="pasa('CASC',this.form.CRED.options[this.form.CRED.selectedIndex].value);">
+              <option value="" selected="selected">SELECCIONA</option>
+              <%
+								v =  (Vector) request.getAttribute ("vRed");
+								if (v != null) {  
+									for (int i = 0; i < v.size(); i++) {  
+										vCols = (Vector) v.get(i);  
+							%>
+									<option value="<%=vCols.get(0)%>" <%= Util.jnvl((String)request.getParameter("CRED"),"").compareTo(vCols.get(0))==0?"SELECTED":"" %>><%= vCols.get(1)%> </option>
+									<%
+									}
+								}
+							%>
+            </select></td>
+						<td><select name="CCAS" class="celdas01" onfocus="nextfield ='BESTADOREG';">
+						  <option value="" selected="selected">SELECCIONA</option>
+						  <%
+								v =  (Vector) request.getAttribute ("vCas");
+								if (v != null) {  
+									for (int i = 0; i < v.size(); i++) {  
+										vCols = (Vector) v.get(i);  
+							%>
+						  <option value="<%=vCols.get(1)%>" <%= Util.jnvl((String)request.getParameter("CCAS"),"").compareTo(vCols.get(1))==0?"SELECTED":"" %>><%= vCols.get(2)%> </option>
+						  <%
+									}
+								}
+							%>
+					  </select></td>
+						<td>
+							<select name="BESTADOREG" class="celdas01" onfocus="nextfield ='graba';">
+								<option value="">SELECCIONA</option>
+								<option value="1" <%= objLst.getUsuBestadoreg().toString().equals("1")?"selected":"" %>>ACTIVO</option>
+								<option value="0" <%= objLst.getUsuBestadoreg().toString().equals("0")?"selected":"" %>>INACTIVO</option>
+							</select>						</td>
+					</tr>
+					<tr align="center">
+						<td colspan="9" bgcolor="#3DB7E4">
+							<input type="hidden" name="pg" value="<%= objLst.getPag()%>" />
+							<input type="hidden" name="opt" value="4">
+						  <input type="hidden" name="caso" value="I">
+						  <input type="hidden" name="CLAVE" value="<%= objLst.getUsuClave().toString() %>" />
+							<input name="graba" class="boton4" type="button" value="ADICIONAR" title="Ingresa Nuevo Registro" onclick="getGrabar();">
+				  		<input type="button" name="reinicia" value="REINICIAR" class="boton4" title="Reinicia Contrase&ntilde;a" onclick="getRestart();" />
+			  		<input name="Salir" class="boton4" type="button" value="  SALIR  " onclick="getSalir();"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</form>
+<% 
+		}
+	} 
+%>
+<table width="850" border="0" align="center" class="titulo6">
+  <tr align="center">
+    <td><% if(msg != null){ %><%= msg %><% } %>&nbsp;</td>
+  </tr>
+</table>
+</body>
+<% 
+	request.removeAttribute("objLst");
+%>
+</html>
