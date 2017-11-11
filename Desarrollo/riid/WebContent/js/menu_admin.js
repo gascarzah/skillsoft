@@ -1,0 +1,64 @@
+stm_bm(["menu14d9",400,"","../images/blank.gif",0,"","",1,0,0,0,0,1,0,0,""],this);
+stm_bp("p0",[0,4,0,0,3,4,0,7,100,"",-2,"",-2,90,0,0,"#000000","transparent","",3,0,0,"#000000"]);
+stm_ai("p0i0",[0,"     MANTENIMIENTO","","",-1,-1,0,"","_self","","","","",0,0,0,"../images/arrow_r.gif","../images/arrow_d.gif",7,7,0,1,1,"#3DB7E4",0,"#ffffff",0,"","",3,3,0,0,"#ffffff #8e9398 #8e9398 #ffffff","#76b2ed #406182 #406182 #76b2ed","#ffffff","#3DB7E4","bold 8pt 'Tahoma','Arial'","bold 8pt 'Tahoma','Arial'",0,0]);
+stm_bp("p1",[1,4,0,0,1,4,0,7,100,"progid:DXImageTransform.Microsoft.Fade(overlap=.5,enabled=0,Duration=0.50)",-2,"progid:DXImageTransform.Microsoft.Fade(overlap=.5,enabled=0,Duration=0.50)",-2,60,0,0,"#000000","#ffffff","",3,0,0,"#3DB7E4"]);
+stm_aix("p1i0","p0i0",[0,"ACCIONES REALIZADAS","","",-1,-1,0,"CtrlMant?opt=1","_self","","","","",0,0,0,"","",0,0,0,0,1,"#3DB7E4",0,"#ffffff",0,"","",3,3,1,2,"#3DB7E4","#ffffff","#ffffff","#3DB7E4","8pt 'Tahoma','Arial'","8pt 'Tahoma','Arial'"]);
+stm_aix("p1i1","p0i0",[0,"MOTIVOS","","",-1,-1,0,"","_self","","","","",0,0,0,"../images/arrow_r.gif","../images/arrow_d.gif",7,7,0,0]);
+stm_bpx("p2","p1",[1,2,0,0,1,4,0,0]);
+stm_aix("p2i0","p1i0",[0,"GRUPOS","","",-1,-1,0,"CtrlMant?opt=17"]);
+stm_aix("p2i1","p1i0",[0,"MOTIVO PRINCIPAL","","",-1,-1,0,"CtrlMant?opt=15"]);
+stm_aix("p2i2","p1i0",[0,"DESCRIPCION DE MOTIVOS","","",-1,-1,0,"CtrlMant?opt=5"]);
+stm_ep();
+
+stm_aix("p1i2","p1i0",[0,"AREA","","",-1,-1,0,"CtrlMant?opt=28"]);
+stm_aix("p1i3","p1i0",[0,"SERVICIO  ","","",-1,-1,0,"CtrlMant?opt=30"]);
+
+stm_aix("p1i4","p1i0",[0,"ESTADOS","","",-1,-1,0,"CtrlMant?opt=7"]);
+stm_aix("p1i5","p1i0",[0,"PERFILES    ","","",-1,-1,0,"CtrlMant?opt=22"]);
+stm_aix("p1i6","p1i0",[0,"TIPOS DE INGRESO","","",-1,-1,0,"CtrlMant?opt=13"]);
+stm_aix("p1i7","p1i0",[0,"TIPOS DE PRESTACION","","",-1,-1,0,"CtrlMant?opt=11"]);
+stm_aix("p1i8","p1i0",[0,"TIPOS DE SOLICITUD","","",-1,-1,0,"CtrlMant?opt=9"]);
+
+stm_aix("p1i9","p1i0",[0,"TIPO DE CONCLUSIONES","","",-1,-1,0,"CtrlMant?opt=24"]);
+stm_aix("p1i10","p1i0",[0,"TIPO DE TEMATICA","","",-1,-1,0,"CtrlMant?opt=26"]);
+stm_aix("p1i11","p1i0",[0,"UNIDAD ORGANICA 01","","",-1,-1,0,"CtrlMant?opt=32"]);
+stm_aix("p1i12","p1i0",[0,"UNIDAD ORGANICA 02","","",-1,-1,0,"CtrlMant?opt=34"]);
+stm_aix("p1i13","p1i0",[0,"MOTIVO DE NO ADMISIBILIDAD","","",-1,-1,0,"CtrlMant?opt=36"]);
+stm_aix("p1i14","p1i0",[0,"MODALIDAD DE CONCLUSIONES","","",-1,-1,0,"CtrlMant?opt=38"]);
+//stm_aix("p1i15","p1i0",[0,"ACCION DE PERSUASION","","",-1,-1,0,"CtrlMant?opt=40"]);
+
+stm_ep();
+stm_aix("p0i1","p0i0",[0,"EXPEDIENTE"]);
+stm_bpx("p3","p0",[1,4,0,0,1,4,0,0,100,"progid:DXImageTransform.Microsoft.Fade(overlap=.5,enabled=0,Duration=0.50)",-2,"progid:DXImageTransform.Microsoft.Fade(overlap=.5,enabled=0,Duration=0.50)",-2,60,0,0,"#000000","#ffffff"]);
+//stm_aix("p3i0","p1i0",[0,"INGRESO DE EXPEDIENTES","","",-1,-1,0,"CtrlFicha?opt=1"]);
+stm_aix("p3i1","p1i0",[0,"ANULACION DE EXPEDIENTE","","",-1,-1,0,"CtrlFicha?opt=16"]);
+//stm_aix("p3i2","p1i0",[0,"BUSQUEDA DE EXPEDIENTE","","",-1,-1,0,"CtrlFicha?opt=3"]);
+//stm_aix("p3i3","p1i0",[0,"BANDEJA DE EXPEDIENTES  ","","",-1,-1,0,"CtrlFicha?opt=34"]);
+//stm_aix("p3i4","p1i0",[0,"FICHAS DESDE PORTAL","","",-1,-1,0,"CtrlFicha?opt=36"]);
+//stm_aix("p3i5","p1i0",[0,"FICHAS ESSALUD EN LINEA  ","","",-1,-1,0,"CtrlFicha?opt=19"]);
+stm_ep();
+
+stm_aix("p0i2","p0i0",[0,"CONSULTAS Y REPORTES","","",-1,-1,0,"","_self","","","","",0,0,0,"../images/arrow_r.gif","../images/arrow_d.gif",7,7,0,1,1,"#3DB7E4",0,"#ffffff",0,"","",3,3,0,0,"#ffffff #8e9398 #8e9398 #ffffff","#eaeff5 #5d6647 #5d6647 #eaeff5"]);
+stm_bpx("p4","p3",[]);
+//stm_aix("p4i0","p1i0",[0,"COMPETENCIA Y NO COMPETENCIA","","",-1,-1,0,"CtrlFicha?opt=9"]);
+//stm_aix("p4i1","p1i0",[0,"ESTADO DE LOS RECLAMOS","","",-1,-1,0,"CtrlFicha?opt=12"]);
+//stm_aix("p4i2","p1i0",[0,"MODALIDAD DE ATENCION","","",-1,-1,0,"CtrlFicha?opt=11"]);
+////stm_aix("p4i3","p1i0",[0,"MODALIDAD DE ATENCION SEMANAL","","",-1,-1,0,"CtrlFicha?opt=13"]);
+//stm_aix("p4i4","p1i0",[0,"MOTIVO DEL RECLAMO","","",-1,-1,0,"CtrlFicha?opt=10"]);
+//stm_aix("p4i5","p1i0",[0,"PRODUCCION USUARIOS POR ASUNTO","","",-1,-1,0,"CtrlFicha?opt=17"]);
+stm_aix("p4i6","p1i0",[0,"EXPORTACION A EXCEL","","",-1,-1,0,"CtrlFicha?opt=8"]);
+stm_ep();
+stm_aix("p0i3","p0i0",[0,"AYUDA"]);
+stm_bpx("p5","p3",[]);
+stm_aix("p5i0","p0i0",[0,"TABLAS PARA LA CALIFICACIÓN","","",-1,-1,0,"../TABLAS_DAE.pdf","_blank"]);
+stm_aix("p5i1","p5i0",[0,"DIRECTIVA PARA LA GESTIÓN DE INTERVENCIONES","","",-1,-1,0,"../DIRECTIVA_DEFENSORIALES_DAE.pdf","_blank"]);
+stm_aix("p5i2","p5i0",[0,"MANUAL DEL USUARIO","","",-1,-1,0,"../Usuario_DDefensorial.pdf","_blank"]);
+stm_ep();
+stm_aix("p0i4","p0i0",[0,"ADMINISTRACION"]);
+stm_bpx("p6","p3",[]);
+stm_aix("p6i0","p5i0",[0,"USUARIOS","","",-1,-1,0,"CtrlMant?opt=3","_self"]);
+stm_aix("p6i1","p5i0",[0,"CAMBIO DE USUARIO","","",-1,-1,0,"../index.html","_parent","","","","",0,0,0,"","",0,0,0,0,1,"#3DB7E4",0,"#ffffff",0,"","",3,3,1,2,"#007bbe","#007bbe"]);
+stm_aix("p6i1","p6i0",[0,"SALIR DEL SISTEMA","","",-1,-1,0,"../servlet/CtrlSalir?upd=Salir","_parent"]);
+stm_ep();
+stm_ep();
+stm_em();
