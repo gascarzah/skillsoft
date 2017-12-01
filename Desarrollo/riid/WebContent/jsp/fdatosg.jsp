@@ -422,7 +422,8 @@ try {
               </select>&nbsp;&nbsp;&nbsp;
             <%= Constantes.NUMERO %>
             <input name="DFICDID" type="text" onfocus="nextfield ='DFICDID';" onchange="veridigitos(this);" size="15" maxlength="15"/>
-						<input name="Button" type="button" class="boton4" onclick="getMigra(document.f.CTDI, document.f.DFICDID);" value="Buscar"/></td>
+						<input name="Button" type="button" class="boton4" onclick="getMigra(document.f.CTDI, document.f.DFICDID);" value="Buscar"/>
+						<input type="text" id="valrec" name="valrec" readonly="readonly" style="border: 0em; color: red;"/>  </td>
           <td>&nbsp;</td>
         </tr>
         <tr>
