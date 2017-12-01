@@ -11,6 +11,15 @@
 </head>
 <body>
 <%
+Map map = new HashMap();
+map.put("1", "Valido");
+map.put("2", "Cancelado");
+map.put("3", "Revocado");
+Random generadorAleatorios = new Random();
+
+//genera un numero entre 1 y 5 y lo guarda en la variable numeroAleatorio
+int numeroAleatorio = 1+generadorAleatorios.nextInt(3);
+
   Connection con = conexion.getConnection();
   if (con==null) {
     request.setAttribute("msg_error", "Error de Conexión a DB:");
@@ -100,6 +109,7 @@
     parent.cuerpo.document.f.PROVINCIA.value = "<%= strCdep %><%= strCprov %>";
     parent.cuerpo.document.f.CFICUBIGEO.value = "<%= strCdep %><%= strCprov %><%= strCdist %>";
     parent.cuerpo.document.f.DFICTIPSEG.value = "<%= strDTipoSeguro %>";
+    parent.cuerpo.document.f.valrec.value = "<%= map.get(String.valueOf(numeroAleatorio)) %>";
 		if(parent.cuerpo.document.f.DFICDIR.value != ""){
 			eval('parent.cuerpo.document.f.DAPEPAT.readOnly=true');
 			eval('parent.cuerpo.document.f.DAPEMAT.readOnly=true');
